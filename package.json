@@ -1,0 +1,19 @@
+{
+  "name": "notetaker-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose test/*",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "John Humbracht",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^24.9.0"
+  }
+}
