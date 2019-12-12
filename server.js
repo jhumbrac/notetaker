@@ -2,10 +2,12 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 
-const PORT = process.env.PORT || 8080;
 const app = express();
+const PORT = process.env.PORT || 8080;
 
-
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
 
 app.get("/notes", function(req, res){
     res.sendFile(path.join(__dirname, "public", "notes.html"));
@@ -16,17 +18,19 @@ app.get("*", function(req, res){
 app.get("/api/notes", (req, res)=>{
     fs.readFile("db/db.json", "utf8", (err, jsonString)=>{
         if (err) throw err;
-        res.json(JSON.parse(jsonString));
+        let json = JSON.parse(jsonString);
+        res.send(json);
     });
 });
 app.post("/api/notes", (req,res)=>{
-    fs.readFile("db/db.json", "utf8", (err, jsonString)=>{
+    fs.readFile("db/db.json", (err, jsonString)=>{
         if (err) throw err;
         let json = JSON.parse(jsonString);
         let newNote = {
             title: req.body.title,
             text: req.body.text
         };
+        console.log("push newNote");
         json.push(newNote);
         fs.writeFile('db/db.json', JSON.stringify(json), err=>{
             if (err) throw err;
@@ -46,7 +50,7 @@ app.delete('/api/notes/:title', (req, res)=>{
         });
     });
 });
-app.use(express.static(__dirname + '/'));
+
 app.listen(PORT, function(){
     console.log(`Server is listening on port: ${PORT}`);
 });
