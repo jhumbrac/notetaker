@@ -73,4 +73,5 @@ You are required to submit the following:
 * The URL of the GitHub repository
 
 - - -
-© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.
+© 2019 Trilogy Education Services, a 2U, Inc. 
+brand. All Rights Reserved.
