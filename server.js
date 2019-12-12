@@ -16,21 +16,20 @@ app.get("*", function(req, res){
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.get("/api/notes", (req, res)=>{
-    fs.readFile("db/db.json", "utf8", (err, jsonString)=>{
+    fs.readFile("db/db.json", (err, data) =>{
         if (err) throw err;
-        let json = JSON.parse(jsonString);
+        let json = JSON.parse(data);
         res.send(json);
     });
 });
 app.post("/api/notes", (req,res)=>{
-    fs.readFile("db/db.json", (err, jsonString)=>{
+    fs.readFile("db/db.json", (err, data)=>{
         if (err) throw err;
-        let json = JSON.parse(jsonString);
+        let json = JSON.parse(data);
         let newNote = {
             title: req.body.title,
             text: req.body.text
         };
-        console.log("push newNote");
         json.push(newNote);
         fs.writeFile('db/db.json', JSON.stringify(json), err=>{
             if (err) throw err;
