@@ -12,15 +12,15 @@ app.use(express.static("public"));
 app.get("/notes", function(req, res){
     res.sendFile(path.join(__dirname, "public", "notes.html"));
 });
-app.get("*", function(req, res){
-    res.sendFile(path.join(__dirname, "public", "index.html"));
-});
 app.get("/api/notes", (req, res)=>{
     fs.readFile("db/db.json", (err, data) =>{
         if (err) throw err;
         let json = JSON.parse(data);
         res.send(json);
     });
+});
+app.get("*", function(req, res){
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 app.post("/api/notes", (req,res)=>{
     fs.readFile("db/db.json", (err, data)=>{
